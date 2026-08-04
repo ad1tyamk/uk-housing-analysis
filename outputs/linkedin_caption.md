@@ -9,6 +9,6 @@ What this involved:
 → A mix-adjusted regional price index (holding property type/tenure/new-build status constant, so it's genuine like-for-like appreciation, not just "more flats sold this year")
 → Catching and fixing a reverse-causality bug along the way — testing same-year rate changes gave the wrong sign, because the BoE raises rates *because* the market is overheating. Using last year's rate change instead is what surfaced the real pattern.
 
-Full methodology, code, and caveats in the repo: [link]
+Full methodology, code, and caveats in the repo (link in comments): github.com/ad1tyamk/uk-housing-analysis
 
 #dataanalysis #python #housing #economics
