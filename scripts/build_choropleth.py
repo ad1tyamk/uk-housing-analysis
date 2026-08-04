@@ -102,8 +102,8 @@ def load_data() -> gpd.GeoDataFrame:
             f"the following year."
             if r["significant"]
             else
-            f"{r['region_name']}: no clear pattern found here -- the effect of rate rises "
-            f"on prices could just be normal year-to-year variation."
+            f"{r['region_name']}: inconclusive -- not enough evidence for a real effect of "
+            f"rate rises on prices here, could just be normal year-to-year variation."
         ),
         axis=1,
     )
@@ -174,7 +174,7 @@ def build_static_map(gdf: gpd.GeoDataFrame) -> None:
             path_effects=text_outline,
         )
         ax.annotate(
-            row["pp_label"] if row["significant"] else "unclear",
+            row["pp_label"] if row["significant"] else "inconclusive",
             xy=(label_xy[0], label_xy[1] - 8000),
             ha="center", fontsize=7, color="black",
             path_effects=text_outline,
@@ -202,7 +202,7 @@ def build_static_map(gdf: gpd.GeoDataFrame) -> None:
     ax.text(
         0.5, -0.04,
         "Based on 20.8 million UK home sales (2003–2025), HM Land Registry, matched to Bank of England rate history.\n"
-        "Hatched / “unclear” regions: not enough evidence for a real pattern here — could just be normal year-to-year ups and downs.",
+        "Hatched / “inconclusive” regions: not enough evidence for a real pattern here — could just be normal year-to-year ups and downs.",
         transform=ax.transAxes, ha="center", va="top", fontsize=7, color="gray",
     )
     out_path = OUTPUT_DIR / "rate_sensitivity_map.png"
