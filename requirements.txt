@@ -1,0 +1,24 @@
+# Data engine
+duckdb>=1.0
+
+# Data wrangling
+pandas>=2.2
+numpy>=1.26
+
+# Stats / modeling
+statsmodels>=0.14
+
+# Geospatial (regional choropleth)
+geopandas>=1.0
+folium>=0.17
+shapely>=2.0
+pyproj>=3.6
+
+# Downloading + progress
+requests>=2.31
+tqdm>=4.66
+html5lib>=1.1
+
+# Notebooks
+jupyterlab>=4.2
+matplotlib>=3.9

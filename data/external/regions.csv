@@ -1,0 +1,14 @@
+code,name,level
+E12000001,North East,region
+E12000002,North West,region
+E12000003,Yorkshire and The Humber,region
+E12000004,East Midlands,region
+E12000005,West Midlands,region
+E12000006,East of England,region
+E12000007,London,region
+E12000008,South East,region
+E12000009,South West,region
+E92000001,England,country
+W92000004,Wales,country
+S92000003,Scotland,country
+N92000002,Northern Ireland,country

@@ -1,0 +1,22 @@
+# Virtual environment
+.venv/
+
+# Data (re-downloadable / regeneratable — not tracked in git)
+data/raw/
+data/staging/
+*.duckdb
+*.duckdb.wal
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+
+# Env / secrets
+.env
+
+# Local tool config
+.claude/
