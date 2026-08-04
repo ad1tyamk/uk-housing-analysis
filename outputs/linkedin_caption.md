@@ -6,6 +6,8 @@ In real terms: on London's 2025 median price (£530,000), that's ~£8,000 less v
 
 A single national rate functions, in practice, like a much stronger lever in the South than in the North.
 
+Why? London and the South East carry far higher price-to-income ratios and larger mortgage balances, so the same 1-point rate rise hits affordability harder, in both relative and absolute terms. These markets likely also have more leveraged buyers and investment purchases, which tend to be more rate-sensitive than the lower-LTV owner-occupiers common in cheaper regions. I didn't directly test loan-to-value or buyer type here, so this is the likely mechanism, not a proven one — but it lines up with what regional monetary-policy-transmission theory has long suggested: a single national rate doesn't hit a country evenly when housing leverage and price levels differ this much by region. This project is a direct empirical check of that idea using real transaction-level data, not aggregate indices.
+
 I built the whole thing from scratch: a pipeline joining 24 years of HM Land Registry sales data to Bank of England rate history (DuckDB), a hedonic pricing model producing a mix-adjusted regional price index, and a rate-sensitivity model that initially gave me the *wrong* answer — same-year rate changes pick up reverse causality, since the BoE raises rates *because* the economy is overheating. Lagging the rate variable by a year is what surfaced the real pattern above.
 
 Full methodology, the bugs I caught along the way, limitations, and the reproducible pipeline are in the repo: github.com/ad1tyamk/uk-housing-analysis
