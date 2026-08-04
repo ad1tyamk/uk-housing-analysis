@@ -2,6 +2,8 @@ Does the Bank of England's interest rate affect house prices the same way everyw
 
 London, the South East, and the South West see a real, statistically significant slowdown in price growth the year after a rate rise (1.1 to 1.6 percentage points). Northern England shows no clear pattern either way — not enough evidence to say it reacts at all.
 
+In the map: the darker the red, the bigger the slowdown in that region. The striped/hatched regions aren't blank data — they're regions where the effect wasn't statistically strong enough to call one way or the other, shown honestly rather than hidden.
+
 In real terms: on London's 2025 median price (£530,000), that's ~£8,000 less value gained in a year. South East (£385,000 median): ~£6,200 less. North East (£175,000 median): no measurable effect at all. And "1%" isn't small to begin with — roughly the gap between 2021's near-zero rates and today's, worth ~£2,500/year extra interest on a typical £250,000 mortgage.
 
 A single national rate functions, in practice, like a much stronger lever in the South than in the North.
