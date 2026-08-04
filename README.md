@@ -1,11 +1,10 @@
-# Does the Bank of England's Interest Rate Affect Every Region the Same Way?
+# UK House Prices and Bank of England Rate Rises: A Regional Breakdown
 
 A hedonic pricing model and regional house-price index built from 20.8 million UK property
-transactions (2003–2025), testing whether price growth reacts differently to Bank of England
-base rate changes depending on where in the UK you live.
-
-**Short answer: no.** London and the South East show a real, statistically significant
-slowdown in price growth the year after a rate rise. Northern England shows no such pattern.
+transactions (2003–2025). The question was whether price growth responds to Bank of England
+base rate changes the same way everywhere in the country. It doesn't. London and the South
+East show a real, statistically significant slowdown in price growth the year after a rate
+rise; Northern England shows no such pattern.
 
 ![Regional rate sensitivity map](outputs/rate_sensitivity_map.png)
 
@@ -20,60 +19,58 @@ slowdown in price growth the year after a rate rise. Northern England shows no s
 | West Midlands, Yorkshire, East Midlands | small, negative | No |
 | Wales, North West, North East | ~0 | No |
 
-A single national interest rate functions, in practice, like a regional policy lever — it
-cools the South noticeably and barely touches the North. Full write-up of the methodology and
-the caveats worth knowing before citing this is below.
+In practical terms, one national interest rate doesn't land evenly across the country. It has
+real bite in the South and almost none in the North. Methodology and caveats below.
 
 ## Methodology
 
-**Data**: [HM Land Registry Price Paid Data](https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads)
-(every residential sale in England & Wales, 2003–2026), joined to the
-[ONS National Statistics Postcode Lookup](https://geoportal.statistics.gov.uk/) (postcode →
-region) and the [Bank of England's Bank Rate history](https://www.bankofengland.co.uk/boeapps/database/Bank-Rate.asp).
-20.8M of ~22.6M raw transactions survive cleaning (standard arm's-length sales only, excluding
-non-market transfers and known PPD data-entry outliers — see `scripts/build_fact_table.py`).
+**Data.** HM Land Registry's Price Paid Data covers residential sales in England & Wales
+(here, 2003–2026), joined to the [ONS National Statistics Postcode Lookup](https://geoportal.statistics.gov.uk/)
+for region and the [Bank of England's Bank Rate history](https://www.bankofengland.co.uk/boeapps/database/Bank-Rate.asp)
+for the rate in effect on each sale date. Of ~22.6M raw transactions, 20.8M survive cleaning:
+standard arm's-length sales only, non-market transfers and known PPD data-entry errors
+excluded (see `scripts/build_fact_table.py`). Full dataset docs: [gov.uk](https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads).
 
-**Model A — hedonic pricing model + regional price index.** PPD doesn't include bedroom count
-or floor area, so — following the same approach used by the UK's official House Price Index —
-price is modeled against property type, new-build status, tenure, and a full region×year fixed
-effect:
+**Model A, hedonic pricing + regional index.** PPD has no bedroom count or floor area, so, in
+line with how the UK's official House Price Index handles the same gap, price is modeled
+against property type, new-build status, tenure, and a region-by-year fixed effect:
 
 ```
 log(price) = β·property_type + β·new_build + β·tenure + γ[region, year] + ε
 ```
 
-`exp(γ[region, year])` is a mix-adjusted regional price index — i.e. it isolates genuine
-like-for-like appreciation from compositional shifts (e.g. more flats selling one year than
-the next). Fit on a 1M-row stratified sample (statsmodels OLS, HC1 robust SEs) for
-computational tractability; results are consistent with re-sampling.
+`exp(γ[region, year])` gives a mix-adjusted regional price index: it nets out the effect of,
+say, more flats selling in one year than the next, leaving the genuine like-for-like price
+movement. Fit on a 1M-row stratified sample (statsmodels OLS, HC1 robust SEs) for
+tractability; the result held up under re-sampling.
 
-**Model B — rate-sensitivity by region.** Regressing raw price growth on the *same-year* rate
-change gives the wrong sign — the BoE raises rates *because* the economy is overheating, so
-contemporaneous rate hikes and price growth are confounded by reverse causality. Model B
-instead regresses each region's annual mix-adjusted index growth (from Model A) on **last
-year's** rate change, with a region-specific slope:
+**Model B, rate sensitivity by region.** Same-year rate changes give the wrong sign here. The
+Bank of England raises rates because the economy is already overheating, so a same-year
+regression mostly captures that reverse causality rather than any dampening effect. Model B
+instead regresses each region's annual index growth (from Model A) on *last* year's rate
+change, with a region-specific slope:
 
 ```
 growth[region, t] = α[region] + β[region]·Δrate[t-1] + ε
 ```
 
-This is the standard fix for monetary-policy-transmission studies, and it's what flips the
-result from noise (all positive, none significant) to the real pattern reported above.
+That one-year lag is standard in monetary-policy-transmission research, and it's the
+difference between the same-year version (noise: every coefficient positive, none
+significant) and the real, correctly-signed pattern reported above.
 
-**Map**: static (matplotlib) and interactive (folium) choropleths over ONS ITL1 region
-boundaries, `scripts/build_choropleth.py`.
+**Map.** Static (matplotlib) and interactive (folium) choropleths over ONS ITL1 region
+boundaries — `scripts/build_choropleth.py`.
 
 ## Limitations
 
-- Only 3 of 10 regions reach conventional statistical significance (p < 0.05), with a 4th
-  (East of England) borderline at p = 0.12 — the *direction* (South reacts, North doesn't) is
-  consistent and robust, but exact magnitudes for the non-significant regions shouldn't be
-  over-interpreted.
-- The rate-sensitivity model is fundamentally a small-sample time-series result: 21 years of
-  national rate data means one severe cycle (2008) and one hiking cycle (2022–23) are doing a
-  lot of the identifying work.
-- PPD has no bedroom count, floor area, or condition data — the hedonic model's R² (0.56) is
-  reasonable given that constraint but leaves real variation unexplained.
+- 3 of 10 regions reach conventional significance (p < 0.05); East of England is borderline
+  at p = 0.12. The North/South direction holds up, but exact magnitudes for the
+  non-significant regions aren't reliable on their own.
+- This is a small-sample time-series result underneath everything else: 21 years of national
+  rate data means one crash (2008) and one hiking cycle (2022–23) are carrying most of the
+  weight.
+- PPD doesn't record bedroom count, floor area, or condition. The hedonic model's R² (0.56)
+  is reasonable given that gap, but real variation is left unexplained.
 
 ## Repo structure
 
@@ -105,11 +102,10 @@ python scripts/build_choropleth.py     # final map
 
 ## Testing
 
-`tests/test_data_quality.py` holds regression checks for real bugs found while building this
-(a silently-dropped region on a placeholder ONS code, a coordinate-reference-system mismatch
-that left the interactive map blank, and a data-quality bound on the cleaned price field).
-These validate the pipeline's own output, not pure functions, so run them after the pipeline
-above rather than on a fresh clone:
+`tests/test_data_quality.py` checks for the actual bugs found while building this: a
+silently-dropped region behind a placeholder ONS code, a coordinate-reference-system mismatch
+that left the interactive map blank, and a bound on the cleaned price field. These validate
+pipeline output rather than pure functions, so they need the pipeline to have run first:
 
 ```bash
 pytest tests/ -v
@@ -127,5 +123,5 @@ Bank Rate history from the Bank of England.
 
 ## License
 
-MIT (code only — see [LICENSE](LICENSE) and "Data attribution" above for the underlying data's
-own licensing).
+MIT for the code (see [LICENSE](LICENSE)). The underlying data has its own licensing — see
+"Data attribution" above.
