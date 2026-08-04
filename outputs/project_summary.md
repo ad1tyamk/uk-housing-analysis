@@ -38,8 +38,9 @@ significant effect. A national interest rate functions, in effect, like a region
   rather than trusting the script ran without error.
 
 **Honest limitations:**
-- Only 4 of 10 regions reach conventional statistical significance (p < 0.05) — the
-  North/South *direction* is robust, exact magnitudes for non-significant regions are not.
+- Only 3 of 10 regions reach conventional statistical significance (p < 0.05), with a 4th
+  (East of England) borderline at p = 0.12 — the North/South *direction* is robust, exact
+  magnitudes for non-significant regions are not.
 - 21 years of national rate data is a small time-series sample; one crash (2008) and one
   hiking cycle (2022–23) do most of the identifying work.
 - PPD has no bedroom count or floor area, so the hedonic model (R² = 0.56) leaves real

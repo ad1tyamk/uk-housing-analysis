@@ -1,6 +1,6 @@
 Does the Bank of England's interest rate affect house prices the same way everywhere in the UK? I tested it on 20.8 million property transactions (2003-2025) — and the answer is no.
 
-London and the South East see a real slowdown in price growth the year after a rate rise (about 1.5-1.6 percentage points). Northern England shows essentially no reaction at all.
+London, the South East, and the South West see a real slowdown in price growth the year after a rate rise (1.1 to 1.6 percentage points). Northern England shows no clear pattern either way — not enough evidence to say it reacts at all.
 
 A single national interest rate is, in effect, a much stronger lever in the South than in the North.
 

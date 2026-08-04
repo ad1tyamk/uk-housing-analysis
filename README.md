@@ -65,9 +65,10 @@ boundaries, `scripts/build_choropleth.py`.
 
 ## Limitations
 
-- Only 4 of 10 regions reach conventional statistical significance — the *direction* (South
-  reacts, North doesn't) is consistent and robust, but exact magnitudes for the
-  non-significant regions shouldn't be over-interpreted.
+- Only 3 of 10 regions reach conventional statistical significance (p < 0.05), with a 4th
+  (East of England) borderline at p = 0.12 — the *direction* (South reacts, North doesn't) is
+  consistent and robust, but exact magnitudes for the non-significant regions shouldn't be
+  over-interpreted.
 - The rate-sensitivity model is fundamentally a small-sample time-series result: 21 years of
   national rate data means one severe cycle (2008) and one hiking cycle (2022–23) are doing a
   lot of the identifying work.
