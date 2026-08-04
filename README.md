@@ -102,12 +102,29 @@ python scripts/fit_rate_sensitivity_model.py  # Model B: rate-sensitivity by reg
 python scripts/build_choropleth.py     # final map
 ```
 
+## Testing
+
+`tests/test_data_quality.py` holds regression checks for real bugs found while building this
+(a silently-dropped region on a placeholder ONS code, a coordinate-reference-system mismatch
+that left the interactive map blank, and a data-quality bound on the cleaned price field).
+These validate the pipeline's own output, not pure functions, so run them after the pipeline
+above rather than on a fresh clone:
+
+```bash
+pytest tests/ -v
+```
+
 ## Stack
 
-Python 3.12, DuckDB, pandas, statsmodels, geopandas, folium.
+Python 3.12, DuckDB, pandas, statsmodels, geopandas, folium, pytest.
 
 ## Data attribution
 
 Contains HM Land Registry data © Crown copyright and database right 2021, and ONS/OS
 geographic data, licensed under the [Open Government Licence v3.0](http://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/).
 Bank Rate history from the Bank of England.
+
+## License
+
+MIT (code only — see [LICENSE](LICENSE) and "Data attribution" above for the underlying data's
+own licensing).
