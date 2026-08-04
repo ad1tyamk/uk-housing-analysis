@@ -157,14 +157,20 @@ def build_static_map(gdf: gpd.GeoDataFrame) -> None:
     # London is geographically tiny -- its label can't fit inside its own
     # borders without colliding with South East, so give it a callout
     # instead of a centroid label like everywhere else.
-    LABEL_OVERRIDES = {"London": (60000, 15000)}  # (dx, dy) offset from centroid
+    LABEL_OVERRIDES = {
+        "London": (65000, 5000),
+        "North East": (10000, -18000),
+        "North West": (-28000, -12000),
+        "Yorkshire and The Humber": (25000, -18000),
+        "East of England": (10000, 20000),
+    }  # (dx, dy) offset from centroid, tuned to avoid label collisions
 
     for _, row in gdf.iterrows():
         centroid = row.geometry.centroid
         dx, dy = LABEL_OVERRIDES.get(row["region_name"], (0, 0))
         label_xy = (centroid.x + dx, centroid.y + dy)
 
-        if dx or dy:
+        if (dx**2 + dy**2) ** 0.5 > 40000:  # only draw a leader line for large offsets
             ax.plot([centroid.x, label_xy[0]], [centroid.y, label_xy[1]], color="black", linewidth=0.6)
 
         ax.annotate(
