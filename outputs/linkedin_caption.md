@@ -1,4 +1,4 @@
-Does the Bank of England's interest rate affect house prices the same way everywhere in the UK? I tested it on 20.8 million property transactions (2003-2025) — and the answer is no.
+Does the Bank of England's interest rate affect house prices the same way everywhere in the UK? I built a hedonic pricing model and a regional rate-sensitivity test on 20.8 million property transactions (2003-2025) to find out — and the answer is no.
 
 London, the South East, and the South West see a real, statistically significant slowdown in price growth the year after a rate rise (1.1 to 1.6 percentage points). Northern England shows no clear pattern either way — not enough evidence to say it reacts at all.
 
